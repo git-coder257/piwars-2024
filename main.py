@@ -1,6 +1,13 @@
 import time
 from motors import *
-from sensors import *
+from sensor import *
+
+def turn():
+    topRight(50)
+    bottomRight(50)
+    time.sleep(0.15)
+    topRight(0)
+    bottomRight(0)
 
 finished = False
 
@@ -14,34 +21,35 @@ move(-1, 0)
 
 while not finished:
     dist = distance()
-    if prevDistance+5 < dist and blocksPassed == 0:
-        time.sleep(0.2)
-        stop()
+    if prevDistance+125 < dist and blocksPassed == 0:
+        time.sleep(0.5)
         move(0, 1)
+        time.sleep(0.75)
         blocksPassed = 1
         directionChanged = 1
-    elif dist < 25 and directionChanged == 1:
-        stop()
-        move(1, 0)
-        directionChanged == 2
-    elif prevDistance+5 < dist and directionChanged == 2:
-        time.sleep(0.2)
-        stop()
+        print("A")
+    elif dist < 170 and directionChanged == 1:
+        move(1, 0.1)
+        directionChanged = 2
+        prevDistance = dist
+        print("B")
+    elif prevDistance+ 75 < dist and directionChanged == 2:
+        time.sleep(0.3)
+        turn()
         move(0, 1)
         directionChanged = 3
         blocksPassed = 2
-    elif dist < 25 and directionChanged == 3:
-        stop()
+        print("C")
+    elif dist < 150 and directionChanged == 3:
         move(-1, 0)
         directionChanged = 4
-    elif directionChanged == 4 and prevDistance+5 < dist:
-        time.sleep(0.15)
-        stop()
+        print("D")
+    elif directionChanged == 4 and prevDistance + 50 < dist:
+        time.sleep(0.2)
         move(0, 1)
-        time.sleep(0.15)
-        stop()
+        time.sleep(1)
+        stop() 
         finished = True
+        print("E")
     else:
-        time.sleep(0.05)
-    
-    prevDistance = dist
+        time.sleep(0.1)
