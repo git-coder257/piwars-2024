@@ -96,7 +96,7 @@ def stop():
     pwm_L1.stop()
     pwm_R2.stop()
     pwm_L2.stop()
-    GPIO.cleanup() #release all GPIO
+    # GPIO.cleanup() #release all GPIO
 
 
 speedScale = 1
@@ -117,6 +117,7 @@ def moveBySpeeds(left, right, dist):
    BL = right
    time = dist/speedScale
    runMotors(TL, TR, BL, BR)
+   print(time)
 def move(x, y, distScale=1, maxSpeed=50):
    left = maxSpeed
    right = maxSpeed
